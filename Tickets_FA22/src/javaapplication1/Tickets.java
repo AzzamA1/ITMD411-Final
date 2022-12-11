@@ -72,6 +72,7 @@ public class Tickets extends JFrame implements ActionListener {
 		// add to Ticket Main menu item
 		mnuTickets.add(mnuItemViewTicket);
 		
+		//added status ticket to Admin Menu as its an admin feature
 		mnuItemStatusTicket = new JMenuItem("Ticket Status");
 		mnuAdmin.add(mnuItemStatusTicket);
 
@@ -161,6 +162,7 @@ public class Tickets extends JFrame implements ActionListener {
 			{
 				int id = 0;
 				
+				//asks user for ID and descriptiob they want to update
 				String ticketID = JOptionPane.showInputDialog(null, "Enter ticket ID to update: ");
 				String ticketDESC = JOptionPane.showInputDialog(null, "Enter ticket description to update");
 				
@@ -169,13 +171,15 @@ public class Tickets extends JFrame implements ActionListener {
 				
 				if(id != 0)
 				{
+					//if the person is an admin, update the ticket
 					System.out.println("Ticket: " + id + " updated.");
 					JOptionPane.showMessageDialog(null, "Ticket: " + id + " updated.");
 					setVisible(true); 
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(null, "You do not have acess to this feature");
+					//if they are not an admin tell them they do not have access
+					JOptionPane.showMessageDialog(null, "You do not have access to this feature");
 					System.out.println("Cant update ticket");
 					setVisible(true); 
 				}
@@ -193,23 +197,29 @@ public class Tickets extends JFrame implements ActionListener {
 			{
 				int id = 0;
 				
+				//asks user for ID to delete
 				String ticketID = JOptionPane.showInputDialog(null, "Enter ID to delete");
 				
 				if(ticketID == null || (ticketID == null && ticketID.isEmpty()))
 				{
+					//if the ticket ID is invalid ask for another
 					JOptionPane.showInputDialog(null, "Enter a ticket ID again");
 					System.out.println("The entered ID is not registered");
 				}
 				else
 				{
+					//if the ticket ID is valid
 					id = Integer.parseInt(ticketID);
+					//prompt the user whether or not they want to delete the ticket
 					int question = JOptionPane.showConfirmDialog(null, "Please confirm to delete ticket: " + ticketID + "?", "YES OR NO", JOptionPane.YES_NO_OPTION);
 					
+					//if the person says yes
 					if(question == JOptionPane.YES_OPTION)
 					{
 						dao.deleteRecords(id);
 						if(id != 0)
 						{
+							//delete the ticket
 							System.out.println("Ticket: " + id + " deleted.");
 							JOptionPane.showMessageDialog(null, "Ticket: " + id + " deleted.");
 						}
@@ -224,6 +234,7 @@ public class Tickets extends JFrame implements ActionListener {
 			}
 			else
 			{
+				//if they are not an admin tell them they do not have access
 				JOptionPane.showMessageDialog(null, "You do not have access to this feature");
 				System.out.println("You do not have access to this feature");
 			}
@@ -233,17 +244,21 @@ public class Tickets extends JFrame implements ActionListener {
 			if(chkIfAdmin == true)
 			{
 				int id = 0;
+				//ask the user to input an ID for the ticket they would like to update
 				String ticketID = JOptionPane.showInputDialog(null, "Which ticket ID status would you like to update? ");
 				id = Integer.parseInt(ticketID);
+				//ask them if the ticket is still in progress
 				int question = JOptionPane.showConfirmDialog(null, "Is this ticket still in progress" + ticketID + "?", "YES OR NO", JOptionPane.YES_NO_OPTION);
 				if(question == JOptionPane.YES_OPTION)
 				{
+					//if the person enters yes for the ticket being in progress, set the status to in progress
 					JOptionPane.showMessageDialog(null, "Ticket: " + id + " has been set to IN PROGRESS.");
 					String ticketDESC = "In Progress";
 					dao.updateRecords(ticketID, ticketDESC);
 				}
 				else
 				{
+					//if the person enters no for the ticket being in progress, set the status to closed
 					JOptionPane.showMessageDialog(null, "Ticket: " + id + " has been set to CLOSED.");
 					String ticketDESC = "CLOSED";
 					dao.updateRecords(ticketID, ticketDESC);
@@ -252,6 +267,7 @@ public class Tickets extends JFrame implements ActionListener {
 			}
 			else
 			{
+				//if they are not an admin tell them they do not have access
 				JOptionPane.showMessageDialog(null, "You do not have access to this feature");
 				System.out.println("You do not have access to this feature");
 			}

@@ -73,6 +73,7 @@ public class Login extends JFrame {
 					ResultSet rs = stmt.executeQuery();
 					if (rs.next()) {
 						ifAdmin = rs.getInt("admin"); // get table column value
+						//Based on the value in the .csv table, if its 1 the person is an admin
 						if(ifAdmin == 1)
 						{
 							admin = true;
@@ -80,6 +81,7 @@ public class Login extends JFrame {
 						}
 						else
 						{
+						//If the number is not 1 they are a user
 							System.out.println("You are a user");
 						}
 						new Tickets(admin); //open Tickets file / GUI interface

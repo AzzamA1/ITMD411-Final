@@ -151,7 +151,7 @@ public class Dao {
 		try
 		{
 			Statement state = getConnection().createStatement();
-			
+			//Selects to edit description from input ID
 			ResultSet results = state.executeQuery("SELECT ticketDESC FROM aabuh_tickets WHERE ticketID = " + ticketID);
 			getConnection().close();
 			
@@ -161,6 +161,7 @@ public class Dao {
 				result = results.getString("ticketDESC");
 			}
 			
+			//looks where to update ticket description from the input ID
 			PreparedStatement prepared = getConnection().prepareStatement("UPDATE aabuh_tickets SET ticketDESC = ? WHERE ticketID = ?");
 			String desc = ticketDESC;
 			
@@ -181,6 +182,7 @@ public class Dao {
 		{
 			Statement state = getConnection().createStatement();
 			
+			//looks for what record to update based on input ID
 			ResultSet results = state.executeQuery("SELECT ticketDESC FROM aabuh_tickets WHERE ticketID = " + ticketID);
 			getConnection().close();
 			
@@ -190,6 +192,7 @@ public class Dao {
 				result = results.getString("ticketDESC");
 			}
 			
+			//updates based on input description and ID
 			PreparedStatement prepared = getConnection().prepareStatement("UPDATE aabuh_tickets SET ticketDESC = ? WHERE ticketID = ?");
 			
 			String desc = ticketDESC;
@@ -210,6 +213,7 @@ public class Dao {
 		try
 		{
 			Statement state = getConnection().createStatement();
+			//Deletes ticket based on input ID
 			String delete = ("DELETE FROM aabuh_tickets WHERE ticketID = " + ticketID);
 			state.executeUpdate(delete);
 		}
